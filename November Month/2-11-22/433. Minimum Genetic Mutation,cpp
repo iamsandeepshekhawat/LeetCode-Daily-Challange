@@ -15,21 +15,30 @@ public:
             int n = q.size();
             for(int i=0;i<n;i++)
             {
-                string node = q.front();     //
-                q.pop();
+                string node = q.front();     // first putting the value of start (given in Q.) in Queue at root node
+              
+                q.pop();     //then deleting that start string from queue.
                 
                 if(node == end)
                 {
-                    return count;
+                    return count;    //checking whether the value of node is equal to the end value or not. If it is then return the count value.
                 }
                 
-                for(char ch :"ACGT")
+                for(char ch :"ACGT")  //this is for changing char one by one of the given string (we can only replace string char by A, C, G,T.
                 {
-                    for(int j=0;j<node.size();j++)
+                    for(int j=0;j<node.size();j++) //loop running for an individual level.
                     {
-                        string adjNode = node;
-                        adjNode[j] = ch;
+                        string adjNode = node;  // assigning value of adjnode to node 
+                        adjNode[j] = ch;       // replacing char one by one of string.
                        if(!visited.count(adjNode) &&                  find(bank.begin(),bank.end(),adjNode)!= bank.end())
+                       
+                       // Now check whether the adjNode value( that we got after replacing any one char of given string) is present in visited set or not, if not
+                       // then check further whether it is present in bank set (given in Q.) or not. So, for that we will start matching the adjNode value from 
+                       // bank.begin to bank.end and if we reach to bank.end and found any matching value then we will ignore that value and move further otherwise
+                       // we will push it into the queue q, and also in the visited set.
+                       
+                       // now we will similarly check it for another string (just changed by one char, from the previous one and at the same level, till j<node.size(); )
+                       
             {
                 q.push(adjNode);
                 visited.insert(adjNode);
@@ -37,7 +46,9 @@ public:
                     }
                 }
             }
-             count++;
+             count++; // now before moving to next level increase the count value by one;
+             
+             // and then do the same for next level.
         }
        return -1; 
     }
